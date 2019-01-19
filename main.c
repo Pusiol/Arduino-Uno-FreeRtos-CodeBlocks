@@ -1,5 +1,6 @@
 /**
-Esta é uma demonstração de uso do FreeRTOS, um sistema de controle PWM para fonte chaveada
+Esta é uma demonstração de uso do FreeRTOS, um sistema de
+controle PWM para fonte chaveada, no caso um buck entralaçado. As tasks
 */
 
 
@@ -34,14 +35,12 @@ ISR(ADC_vect)
 //	static float x[2],y[2];
 	ladc=ADCH;
 	xSemaphoreGive( adccall );
-	print("\nmarvin\n");
 	ibnc(ladc,result);printrec(result);put('\n');
 
 }
 //============================================================
 ISR(TIMER1_OVF_vect)
 {
-	print("\nsider\n");
 	ibnc(ladc,result);printrec(result);put('\n');
 }
 //============================================================
@@ -63,9 +62,9 @@ static void Taskleuart(void* pvParameters)
 	  if(flag==3){
 		  if(*bufer=='y'){
 			  refm=ref;
-			  print("\nAlt");//erado\n");
+			  print("\nAlterado\n");
 		  }
-		  else print("\nCan");//celado\n");
+		  else print("\nCancelado\n");
 		  flag=0;
 	  }
 	  //print(bufer);
@@ -140,8 +139,7 @@ int main()
 TIMSK1=0b00000001;
 TCCR1A=(1<<COM1A1) | (0<<COM1A0) | (1<<COM1B1) | (1<<COM1B0) | (0/*1*/<<WGM11) | (0<<WGM10);
 TCCR1B=(0<<ICNC1) | (0<<ICES1) | (1<<WGM13) | (0<<WGM12) | (1<<CS12) | (0<<CS11) | (1<<CS10);
-//TCNT1H=0x00;
-//TCNT1L=0x00;
+
 ICR1H=0x2F;
 ICR1L=0xFF;
 OCR1AH=0x1F;
